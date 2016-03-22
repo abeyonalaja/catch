@@ -1,5 +1,5 @@
 var React = require('react');
-
+var ReactDOM = require('react-dom');
 
 /*
 
@@ -16,3 +16,6 @@ var StorePicker = React.createClass({
         )
     }
 });
+
+
+ReactDOM.render(<StorePicker />,document.querySelector('#main'))
