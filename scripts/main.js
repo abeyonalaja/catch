@@ -99,9 +99,23 @@ var Inventory = React.createClass({
 */
 var AddFishForm = React.createClass({
 
+    createFish : function() {
+        
+    },
+
     render : function(){
         return(
-            <p>Add Fish Form</p>
+                <form className="fish-edit" onSubmit={this.createFish.bind(this)}>
+                    <input name="" type="text" placeholder="Fish Name" ref="name"/>
+                    <input ref="price" type="text" placeholder="Fish Price"/>
+                    <select id="" name="" ref="select">
+                        <option value="available">Fresh!</option>
+                        <option value="unavailable">Sold Out!</option>
+                    </select>
+                    <textarea type="text" id="" ref="desc" placeholder="Desc"></textarea>
+                    <input ref="image" type="text" placeholder="URL to Image"/>
+                <button type="submit">+ Add Item</button>
+                </form>
         );
     }
 });
