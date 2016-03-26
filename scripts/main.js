@@ -26,7 +26,13 @@ var App = React.createClass({
     },
 
     addFish : function(fish) {
-        
+
+        console.log('added fish')
+        var timestamp = (new Date()).getTime();
+        // update state object
+        this.state.fishes['fish-' + timestamp] = fish;
+        // set the state
+        this.setState({ fishes : this.state.fishes });
     },
 
     render: function() {
@@ -36,7 +42,7 @@ var App = React.createClass({
                   <Header tagline="Fresh Seafood Market" />
                 </div>
                 <Order />
-                <Inventory />
+                <Inventory addFish={this.addFish} />
             </div>
         );
     }
@@ -98,7 +104,7 @@ var Inventory = React.createClass({
         return (
             <div>
                 <h2>Inventory</h2>
-                <AddFishForm />
+                <AddFishForm addFish={this.props.addFish} />
             </div>
         );
     }
@@ -112,6 +118,7 @@ var AddFishForm = React.createClass({
 
     createFish : function(event) {
         event.preventDefault();
+        console.log('Grrr')
         var fish =  {
             name   : this.refs.name.value,
             price  : this.refs.price.value,
@@ -119,6 +126,8 @@ var AddFishForm = React.createClass({
             desc   : this.refs.desc.value,
             image  : this.refs.image.value
         }
+
+        this.props.addFish(fish)
     },
 
     render : function(){
@@ -126,7 +135,7 @@ var AddFishForm = React.createClass({
                 <form className="fish-edit" onSubmit={this.createFish}>
                     <input name="" type="text" placeholder="Fish Name" ref="name"/>
                     <input ref="price" type="text" placeholder="Fish Price"/>
-                    <select id="" name="" ref="select">
+                    <select id="" name="" ref="status">
                         <option value="available">Fresh!</option>
                         <option value="unavailable">Sold Out!</option>
                     </select>
