@@ -18,6 +18,17 @@ var helpers = require('./helpers.js');
 */
 var App = React.createClass({
 
+    getInitialState : function() {
+        return {
+            fishes : {},
+            order  : {}
+        }  
+    },
+
+    addFish : function(fish) {
+        
+    },
+
     render: function() {
         return (
             <div className="catch-of-the-day">
@@ -99,13 +110,20 @@ var Inventory = React.createClass({
 */
 var AddFishForm = React.createClass({
 
-    createFish : function() {
-        
+    createFish : function(event) {
+        event.preventDefault();
+        var fish =  {
+            name   : this.refs.name.value,
+            price  : this.refs.price.value,
+            status : this.refs.status.value,
+            desc   : this.refs.desc.value,
+            image  : this.refs.image.value
+        }
     },
 
     render : function(){
         return(
-                <form className="fish-edit" onSubmit={this.createFish.bind(this)}>
+                <form className="fish-edit" onSubmit={this.createFish}>
                     <input name="" type="text" placeholder="Fish Name" ref="name"/>
                     <input ref="price" type="text" placeholder="Fish Price"/>
                     <select id="" name="" ref="select">
