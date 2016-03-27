@@ -35,6 +35,12 @@ var App = React.createClass({
         this.setState({ fishes : this.state.fishes });
     },
 
+    loadSamples : function() {
+        this.setState({
+            fishes : require('./sample-fishes.js')
+        })
+    },
+
     render: function() {
         return (
             <div className="catch-of-the-day">
@@ -42,7 +48,7 @@ var App = React.createClass({
                   <Header tagline="Fresh Seafood Market" />
                 </div>
                 <Order />
-                <Inventory addFish={this.addFish} />
+                <Inventory addFish={this.addFish} loadSamples={this.loadSamples} />
             </div>
         );
     }
@@ -105,6 +111,7 @@ var Inventory = React.createClass({
             <div>
                 <h2>Inventory</h2>
                 <AddFishForm addFish={this.props.addFish} />
+                <button onClick={this.props.loadSamples}>Load Sample Fishes</button>
             </div>
         );
     }
@@ -117,7 +124,7 @@ var Inventory = React.createClass({
 var AddFishForm = React.createClass({
 
     createFish : function(event) {
-        event.preventDefault();
+        event.preventDefault();select
         console.log('Grrr')
         var fish =  {
             name   : this.refs.name.value,
@@ -127,12 +134,13 @@ var AddFishForm = React.createClass({
             image  : this.refs.image.value
         }
 
-        this.props.addFish(fish)
+        this.props.addFish(fish);
+        this.refs.fishForm.reset();
     },
 
     render : function(){
         return(
-                <form className="fish-edit" onSubmit={this.createFish}>
+                <form className="fish-edit" ref="fishForm" onSubmit={this.createFish}>
                     <input name="" type="text" placeholder="Fish Name" ref="name"/>
                     <input ref="price" type="text" placeholder="Fish Price"/>
                     <select id="" name="" ref="status">
