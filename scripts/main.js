@@ -10,6 +10,10 @@ var createBrowserHistory = require('history/lib/createBrowserHistory');
 
 var helpers = require('./helpers.js');
 
+// Firebase
+var Rebase = require('re-base');
+var base = Rebase.createClass('https://luminous-heat-722.firebaseio.com/');
+
 /*
 
   StorePicker
@@ -23,6 +27,13 @@ var App = React.createClass({
             fishes : {},
             order  : {}
         }  
+    },
+
+    componentDidMount : function() {
+        base.syncState(this.props.params.storeID + '/fishes', {
+            context : this,
+            state : 'fishes'
+        });
     },
 
     addToOrder : function(key) {
