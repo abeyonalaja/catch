@@ -34,6 +34,19 @@ var App = React.createClass({
             context : this,
             state : 'fishes'
         });
+
+        var localStorageRef = localStorage.getItem('order-' + this.props.params.storeID);
+
+        if(localStorageRef) {
+            this.setState({
+                order : JSON.parse(localStorageRef)
+            })
+        }
+    },
+
+    componentWillUpdate : function(nextProps, nextState) {
+        console.log(nextState);
+        localStorage.setItem('order-' + this.props.params.storeID, JSON.stringify(nextState.order) );
     },
 
     addToOrder : function(key) {
@@ -128,7 +141,7 @@ var Order = React.createClass({
         }
 
         return (
-                <li>
+                <li key={ key }>
                 { count }lbs
                 { fish.name }
                 <span>{ helpers.formatPrice( count * fish.price) }</span> 
